@@ -13,7 +13,7 @@ spec:
     spec:
       containers:
       - name: postgre
-        image: postgres:14.5
+        image: postgres:15.0
         ports:
         - containerPort: 5432
         env:
@@ -35,6 +35,7 @@ spec:
   ports:
   - port: 5432
     targetPort: 5432
+  type: ClusterIP
 
 ---
 apiVersion: apps/v1
@@ -42,7 +43,7 @@ kind: Deployment
 metadata:
   name: kubenews
 spec:
-  replicas: 1
+  replicas: 4
   selector:
     matchLabels:
       app: kubenews
@@ -78,6 +79,6 @@ spec:
   ports:
   - port: 80
     targetPort: 8080
-    # nodePort: 30000
+    nodePort: 30000
   # type: NodePort
   type: LoadBalancer
